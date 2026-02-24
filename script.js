@@ -1,22 +1,17 @@
 let puntos = 0;
-let pcEncendida = false;
 
 function mostrarSeccion(id) {
-  document.querySelectorAll('.seccion').forEach(sec => {
-    sec.classList.remove('activa');
+  document.querySelectorAll(".seccion").forEach(sec => {
+    sec.style.display = "none";
   });
 
-  document.getElementById(id).classList.add('activa');
+  document.getElementById(id).style.display = "block";
 }
 
-function mostrarInfo(titulo, texto) {
-  document.getElementById("tituloVentana").innerText = titulo;
-  document.getElementById("textoVentana").innerText = texto;
-  document.getElementById("ventana").classList.remove("oculto");
-}
-
-function cerrarVentana() {
-  document.getElementById("ventana").classList.add("oculto");
+function mostrarInfo(texto) {
+  document.querySelectorAll("#info").forEach(p => {
+    p.innerText = texto;
+  });
 }
 
 function respuesta(correcta) {
@@ -33,15 +28,13 @@ function respuesta(correcta) {
 function encenderPC() {
   const pantalla = document.getElementById("pantalla");
 
-  pcEncendida = !pcEncendida;
-
-  if (pcEncendida) {
-    pantalla.classList.remove("apagada");
-    pantalla.classList.add("encendida");
-    pantalla.innerText = "🟢 PC encendida";
-  } else {
-    pantalla.classList.remove("encendida");
-    pantalla.classList.add("apagada");
-    pantalla.innerText = "🔴 PC apagada";
-  }
+  pantalla.innerText = "🟢 PC encendida...";
+  
+  setTimeout(() => {
+    pantalla.innerText = "💻 Sistema iniciado";
+  }, 1500);
 }
+
+/* Mostrar hardware al iniciar */
+mostrarSeccion("hardware");
+
