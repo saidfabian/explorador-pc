@@ -23,30 +23,68 @@
   <button onclick="mostrarSeccion('simulacion')">Simulación</button>
 </nav>
 
-<!-- VENTANA -->
 <div class="window glass">
 
   <!-- HARDWARE -->
   <div id="hardware" class="seccion">
     <h2>🖥️ Hardware</h2>
     <div class="grid">
-      <div class="card" onclick="mostrarInfo('La CPU procesa instrucciones.')">🧠 CPU</div>
-      <div class="card" onclick="mostrarInfo('La RAM guarda datos temporales.')">⚡ RAM</div>
-      <div class="card" onclick="mostrarInfo('El disco duro almacena archivos.')">💾 Disco</div>
-      <div class="card" onclick="mostrarInfo('La placa base conecta todo.')">🔌 Placa Base</div>
+      <div class="card" onclick="abrirDetalle('CPU')">🧠 CPU</div>
+      <div class="card" onclick="abrirDetalle('RAM')">⚡ RAM</div>
+      <div class="card" onclick="abrirDetalle('DISCO')">💾 Disco</div>
+      <div class="card" onclick="abrirDetalle('GPU')">🎮 GPU</div>
+      <div class="card" onclick="abrirDetalle('PLACA')">🔌 Placa Base</div>
+      <div class="card" onclick="abrirDetalle('FUENTE')">🔋 Fuente</div>
     </div>
-    <p id="info"></p>
+
+    <div id="panelDetalle" class="detalle oculto">
+      <div class="detalleHeader">
+        <h3 id="detalleTitulo">Detalle</h3>
+        <button class="btnClose" onclick="cerrarDetalle()">✖</button>
+      </div>
+      <p id="detalleTexto"></p>
+
+      <div class="detalleGrid">
+        <div class="detalleVisual" id="detalleVisual"></div>
+
+        <div class="detallePartes">
+          <h4>Partes</h4>
+          <div id="detallePartes"></div>
+        </div>
+      </div>
+
+      <p class="hint">Tip: toca una parte para ver su función.</p>
+    </div>
   </div>
 
   <!-- SOFTWARE -->
   <div id="software" class="seccion">
     <h2>💿 Software</h2>
     <div class="grid">
-      <div class="card" onclick="mostrarInfo('El SO controla el hardware.')">🖥️ Sistema Operativo</div>
-      <div class="card" onclick="mostrarInfo('Los programas ejecutan tareas.')">📦 Programas</div>
-      <div class="card" onclick="mostrarInfo('El navegador permite internet.')">🌐 Navegador</div>
+      <div class="card" onclick="abrirDetalle('SO')">🖥️ Sistema Operativo</div>
+      <div class="card" onclick="abrirDetalle('APP')">📦 Programas</div>
+      <div class="card" onclick="abrirDetalle('NAV')">🌐 Navegador</div>
+      <div class="card" onclick="abrirDetalle('ANTIV')">🛡️ Antivirus</div>
     </div>
-    <p id="info"></p>
+
+    <div id="panelDetalleSoft" class="detalle oculto">
+      <div class="detalleHeader">
+        <h3 id="detalleTituloSoft">Detalle</h3>
+        <button class="btnClose" onclick="cerrarDetalleSoft()">✖</button>
+      </div>
+      <p id="detalleTextoSoft"></p>
+
+      <div class="detalleGrid">
+        <div class="detalleVisual" id="detalleVisualSoft"></div>
+
+        <div class="detallePartes">
+          <h4>Funciones</h4>
+          <div id="detallePartesSoft"></div>
+        </div>
+      </div>
+
+      <p class="hint">Tip: toca una función para ver un ejemplo.</p>
+    </div>
   </div>
 
   <!-- QUIZ -->
@@ -55,7 +93,7 @@
 
     <div class="quiz-box">
       <p id="pregunta"></p>
-      <div id="respuestas"></div>
+      <div id="respuestas" class="quizOpciones"></div>
       <p>Puntos: <span id="puntos">0</span></p>
     </div>
   </div>
@@ -72,7 +110,6 @@
       </div>
       <p id="pantalla">🔴 PC apagada</p>
     </div>
-
   </div>
 
 </div>
