@@ -141,3 +141,150 @@ body {
 @media (max-width: 600px) {
   header h1 { font-size: 20px; }
 }
+/* ===== Panel de detalle tipo ventana ===== */
+.detalle {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.detalleHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.btnClose{
+  border:none;
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+  background: rgba(239,68,68,0.18);
+  color:#fff;
+}
+
+.detalleGrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+  margin-top:12px;
+}
+
+@media (min-width: 760px){
+  .detalleGrid{
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items:start;
+  }
+}
+
+.detalleVisual{
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.svg3d{
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 16px 24px rgba(0,0,0,0.55));
+}
+
+.detallePartes{
+  text-align:left;
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.detallePartes h4{
+  margin-bottom:8px;
+}
+
+.chip{
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color:#fff;
+  cursor:pointer;
+}
+
+.hint{
+  margin-top:10px;
+  opacity:0.85;
+  font-size: 14px;
+}
+
+.oculto{ display:none; }
+
+/* ===== Quiz con tarjetas + imagen ===== */
+.quizOpciones{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 520px){
+  .quizOpciones{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.quizCard{
+  text-align:center;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  cursor:pointer;
+  transition: 0.25s;
+  color:#fff;
+}
+
+.quizCard:hover{
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.10);
+}
+
+.quizImg{
+  border-radius: 14px;
+  padding: 8px;
+  background: rgba(0,0,0,0.22);
+  margin-bottom: 8px;
+}
+
+.quizLbl{
+  font-weight: 700;
+}
+
+/* ===== Toast bonito ===== */
+.toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #fff;
+  width: min(92vw, 420px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+  z-index: 50;
+}
+
+.toast.show{
+  opacity: 1;
+}
+
