@@ -4,8 +4,6 @@ body {
   overflow: hidden;
 }
 
-/* ===== PANTALLA ===== */
-
 #pantalla {
   width: 100vw;
   height: 100vh;
@@ -22,18 +20,18 @@ body {
 .desktop {
   width: 100%;
   height: 100%;
-  background: url("https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=2070") center/cover;
+  background: linear-gradient(135deg, #0f172a, #020617);
   position: relative;
+  color: white;
 }
 
 /* ===== ICONOS ===== */
 
 .icono {
-  width: 70px;
+  width: 80px;
   text-align: center;
   cursor: grab;
   position: absolute;
-  color: white;
   user-select: none;
 }
 
@@ -44,13 +42,13 @@ body {
 /* ===== VENTANAS ===== */
 
 .ventana {
-  width: 320px;
+  width: 360px;
   background: #0f172a;
   border-radius: 10px;
   position: absolute;
-  top: 100px;
-  left: 100px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  top: 120px;
+  left: 120px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
   animation: aparecer 0.2s ease;
 }
 
@@ -75,7 +73,6 @@ body {
 
 .contenido {
   padding: 15px;
-  color: white;
 }
 
 /* ===== TASKBAR ===== */
@@ -89,7 +86,6 @@ body {
   display: flex;
   align-items: center;
   padding: 0 10px;
-  color: white;
 }
 
 .inicio {
@@ -113,6 +109,5 @@ body {
   background: #0f172a;
   border-radius: 10px;
   padding: 10px;
-  color: white;
   display: none;
 }
