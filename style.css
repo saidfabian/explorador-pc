@@ -3,35 +3,31 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #0f172a, #020617);
   color: white;
-  text-align: center;
 }
 
 header {
-  padding: 30px 20px 10px;
-}
-
-h1 {
-  margin: 0;
-  font-size: 28px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.3);
 }
 
 nav {
-  margin: 20px 0;
+  text-align: center;
+  margin: 15px;
 }
 
-nav button {
+button {
   background: #2563eb;
   border: none;
-  color: white;
-  padding: 10px 18px;
+  padding: 10px 15px;
   margin: 5px;
   border-radius: 10px;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
-nav button:hover {
+button:hover {
   background: #1d4ed8;
   transform: scale(1.05);
 }
@@ -39,105 +35,40 @@ nav button:hover {
 .seccion {
   display: none;
   padding: 20px;
+  max-width: 900px;
+  margin: auto;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 15px;
-  max-width: 500px;
-  margin: auto;
+  margin-top: 15px;
 }
 
 .card {
-  background: #0b1220;
+  background: rgba(255,255,255,0.08);
   padding: 20px;
   border-radius: 15px;
+  text-align: center;
   cursor: pointer;
-  transition: 0.3s;
-  border: 1px solid #1e293b;
+  transition: 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  background: #111827;
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-3px);
 }
 
-#info {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #93c5fd;
-}
-
-.quiz button {
-  display: inline-block;
-  margin: 5px;
-  background: #2563eb;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-}
-
-.quiz button:hover {
-  background: #1d4ed8;
-}
-
-.puntos {
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.power {
-  background: #16a34a;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-}
-
-.power:hover {
-  background: #15803d;
-}
-
-#pantalla {
-  margin-top: 15px;
-  font-size: 18px;
-}
-/* Animación de arranque */
-.boot {
-  animation: parpadeo 0.4s infinite alternate;
-  color: #facc15;
-}
-
-.on {
-  color: #22c55e;
-  font-weight: bold;
-  animation: aparecer 0.4s ease;
-}
-
-@keyframes parpadeo {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
-}
-
-@keyframes aparecer {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-/* ===== BOOT SCREEN PRO ===== */
+/* ===== BOOT ===== */
 
 .boot-screen {
   background: black;
   color: #22c55e;
   padding: 20px;
   border-radius: 10px;
-  text-align: center;
   font-family: monospace;
-  margin-top: 10px;
+  text-align: center;
 }
 
 .barra {
@@ -147,25 +78,53 @@ nav button:hover {
   border-radius: 10px;
   margin-top: 10px;
   overflow: hidden;
-  border: 1px solid #333;
 }
 
 .progreso {
   height: 100%;
   width: 0%;
   background: #22c55e;
-  transition: width 0.2s ease;
 }
 
-.on {
-  color: #22c55e;
-  font-weight: bold;
-  animation: aparecer 0.3s ease;
+/* ===== LOGIN ===== */
+
+.login {
+  background: #020617;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
 }
 
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.login input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 200px;
 }
 
+/* ===== DESKTOP ===== */
 
+.desktop {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.iconos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 40px;
+  margin-top: 10px;
+}
+
+.icono {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.icono:hover {
+  transform: scale(1.2);
+}
