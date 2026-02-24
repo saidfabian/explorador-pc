@@ -1,63 +1,33 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f172a, #020617);
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: black;
   color: white;
+  overflow: hidden;
 }
 
 header {
   text-align: center;
-  padding: 20px;
-  background: rgba(0,0,0,0.3);
-}
-
-nav {
-  text-align: center;
-  margin: 15px;
+  padding: 15px;
+  background: #111;
 }
 
 button {
   background: #2563eb;
   border: none;
   padding: 10px 15px;
-  margin: 5px;
   border-radius: 10px;
   color: white;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-button:hover {
-  background: #1d4ed8;
-  transform: scale(1.05);
-}
-
-.seccion {
-  display: none;
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.card {
-  background: rgba(255,255,255,0.08);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.card:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-3px);
+#pantalla {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
 }
 
 /* ===== BOOT ===== */
@@ -65,14 +35,12 @@ button:hover {
 .boot-screen {
   background: black;
   color: #22c55e;
-  padding: 20px;
-  border-radius: 10px;
   font-family: monospace;
   text-align: center;
 }
 
 .barra {
-  width: 100%;
+  width: 300px;
   height: 20px;
   background: #111;
   border-radius: 10px;
@@ -90,41 +58,66 @@ button:hover {
 
 .login {
   background: #020617;
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
   text-align: center;
 }
 
 .login input {
   padding: 10px;
-  margin: 10px;
   border-radius: 10px;
   border: none;
-  width: 200px;
+  margin-top: 10px;
 }
 
 /* ===== DESKTOP ===== */
 
 .desktop {
-  background: linear-gradient(135deg, #0f172a, #020617);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.iconos {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  font-size: 40px;
-  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=2070") center/cover;
+  position: relative;
 }
 
 .icono {
-  cursor: pointer;
-  transition: 0.2s;
+  width: 70px;
+  text-align: center;
+  cursor: grab;
+  position: absolute;
+  user-select: none;
 }
 
 .icono:hover {
-  transform: scale(1.2);
+  transform: scale(1.05);
+}
+
+/* ===== VENTANAS ===== */
+
+.ventana {
+  width: 300px;
+  background: #0f172a;
+  border-radius: 10px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.barra-titulo {
+  background: #1e293b;
+  padding: 10px;
+  cursor: grab;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenido {
+  padding: 15px;
+}
+
+.cerrar {
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
 }
