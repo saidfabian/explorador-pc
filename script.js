@@ -1,4 +1,5 @@
 let puntos = 0;
+let encendida = false;
 
 function mostrarSeccion(id) {
   document.querySelectorAll(".seccion").forEach(sec => {
@@ -28,10 +29,21 @@ function respuesta(correcta) {
 function encenderPC() {
   const pantalla = document.getElementById("pantalla");
 
-  if (pantalla.innerText.includes("apagada")) {
-    pantalla.innerText = "🟢 PC encendida";
+  if (!encendida) {
+    encendida = true;
+    pantalla.innerText = "🟡 Iniciando sistema...";
+    pantalla.classList.add("boot");
+
+    setTimeout(() => {
+      pantalla.innerText = "🟢 Sistema operativo cargado";
+      pantalla.classList.remove("boot");
+      pantalla.classList.add("on");
+    }, 1500);
+
   } else {
+    encendida = false;
     pantalla.innerText = "🔴 PC apagada";
+    pantalla.classList.remove("on");
   }
 }
 
