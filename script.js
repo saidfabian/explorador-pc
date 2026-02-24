@@ -1,19 +1,34 @@
-let puntos = 0;
+function mostrarSeccion(id) {
+  // Oculta todas las secciones
+  const secciones = document.querySelectorAll(".seccion");
+  secciones.forEach(sec => sec.style.display = "none");
 
-function correcta() {
-  puntos++;
-  document.getElementById("puntos").innerText = puntos;
-  alert("✅ Correcto");
+  // Muestra la sección seleccionada
+  document.getElementById(id).style.display = "block";
 }
 
-function incorrecta() {
-  alert("❌ Incorrecto");
+function mostrarInfo(texto) {
+  document.getElementById("info").innerText = texto;
+}
+
+let puntos = 0;
+
+function respuesta(correcta) {
+  if (correcta) {
+    puntos++;
+    alert("✅ Correcto");
+  } else {
+    alert("❌ Incorrecto");
+  }
+
+  document.getElementById("puntos").innerText = puntos;
 }
 
 function encenderPC() {
-  alert("💻 Iniciando sistema...");
+  const pantalla = document.getElementById("pantalla");
+  pantalla.innerText = "💻 Iniciando sistema...";
   
   setTimeout(() => {
-    alert("✅ Sistema iniciado correctamente");
-  }, 1000);
+    pantalla.innerText = "🟢 Sistema encendido correctamente";
+  }, 1500);
 }
