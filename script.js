@@ -1,4 +1,5 @@
 let encendida = false;
+let puntos = 0;
 
 document.getElementById("pantalla").onclick = () => {
   if (!encendida) encenderPC();
@@ -16,12 +17,14 @@ function encenderPC() {
   setTimeout(() => {
     pantalla.innerHTML = `
       <div class="desktop" id="desktop">
-        <div class="icono" style="top:40px; left:40px;" ondblclick="abrirVentana('archivos')">📁<br>Archivos</div>
-        <div class="icono" style="top:40px; left:140px;" ondblclick="abrirVentana('navegador')">🌐<br>Navegador</div>
-        <div class="icono" style="top:40px; left:240px;" ondblclick="abrirVentana('config')">⚙️<br>Config</div>
+
+        <div class="icono" style="top:40px; left:40px;" ondblclick="abrirVentana('hardware')">🖥️<br>Hardware</div>
+        <div class="icono" style="top:40px; left:140px;" ondblclick="abrirVentana('software')">💿<br>Software</div>
+        <div class="icono" style="top:40px; left:240px;" ondblclick="abrirVentana('quiz')">🧠<br>Quiz</div>
+        <div class="icono" style="top:40px; left:340px;" ondblclick="abrirVentana('simulacion')">⚙️<br>Simulación</div>
 
         <div class="menu-inicio" id="menuInicio">
-          <p onclick="alert('Sistema Simulado 😎')">💻 Mi PC</p>
+          <p onclick="alert('Explorador Interactivo 😎')">💻 Mi PC</p>
           <p onclick="apagar()">🔴 Apagar</p>
         </div>
 
@@ -49,10 +52,8 @@ function toggleInicio() {
 
 function activarReloj() {
   const reloj = document.getElementById("reloj");
-
   setInterval(() => {
-    const ahora = new Date();
-    reloj.innerText = ahora.toLocaleTimeString();
+    reloj.innerText = new Date().toLocaleTimeString();
   }, 1000);
 }
 
@@ -61,16 +62,53 @@ function abrirVentana(tipo) {
   ventana.className = "ventana";
 
   let contenido = "";
-  if (tipo === "archivos") contenido = "📄 Tarea.docx<br>📷 Foto.png";
-  if (tipo === "navegador") contenido = "🌐 Navegador simulado";
-  if (tipo === "config") contenido = "⚙️ Panel de control";
+
+  if (tipo === "hardware") {
+    contenido = `
+      <h3>🖥️ Hardware</h3>
+      CPU – Cerebro del PC<br>
+      RAM – Memoria temporal<br>
+      Disco Duro – Almacenamiento<br>
+      Placa Base – Conecta todo
+    `;
+  }
+
+  if (tipo === "software") {
+    contenido = `
+      <h3>💿 Software</h3>
+      Sistema Operativo<br>
+      Programas<br>
+      Navegadores
+    `;
+  }
+
+  if (tipo === "quiz") {
+    contenido = `
+      <h3>🧠 Quiz</h3>
+      ¿Cerebro del PC?<br>
+      <button onclick="respuesta(true)">CPU</button>
+      <button onclick="respuesta(false)">RAM</button>
+      <br><br>
+      ¿Memoria temporal?<br>
+      <button onclick="respuesta(false)">Disco Duro</button>
+      <button onclick="respuesta(true)">RAM</button>
+      <br><br>
+      Puntos: <span id="puntos">${puntos}</span>
+    `;
+  }
+
+  if (tipo === "simulacion") {
+    contenido = `
+      <h3>⚙️ Simulación</h3>
+      <button onclick="alert('Procesando datos...')">Ejecutar proceso</button>
+    `;
+  }
 
   ventana.innerHTML = `
     <div class="barra-titulo">
       <span>${tipo.toUpperCase()}</span>
       <div class="botones">
-        <span onclick="minimizar(this)">🗕</span>
-        <span onclick="cerrar(this)">✖</span>
+        <span onclick="this.closest('.ventana').remove()">✖</span>
       </div>
     </div>
     <div class="contenido">${contenido}</div>
@@ -80,13 +118,9 @@ function abrirVentana(tipo) {
   hacerArrastrable(ventana);
 }
 
-function cerrar(btn) {
-  btn.closest(".ventana").remove();
-}
-
-function minimizar(btn) {
-  const ventana = btn.closest(".ventana");
-  ventana.style.display = "none";
+function respuesta(correcta) {
+  if (correcta) puntos++;
+  document.querySelectorAll("#puntos").forEach(p => p.innerText = puntos);
 }
 
 function hacerArrastrable(elemento) {
