@@ -4,37 +4,23 @@ function mostrarSeccion(id) {
   document.getElementById(id).style.display = "block";
 }
 
-/* ================== SIMULACIÓN ================== */
-function animarBarra(callbackTexto) {
-  const progreso = document.getElementById("progreso");
-  let ancho = 0;
-  progreso.style.width = "0%";
-
-  const intervalo = setInterval(() => {
-    ancho += 5;
-    progreso.style.width = ancho + "%";
-    if (ancho >= 100) {
-      clearInterval(intervalo);
-      callbackTexto();
-    }
-  }, 60);
+/* ================== TOAST ================== */
+let toastTimer = null;
+function toast(titulo, texto) {
+  let el = document.getElementById("toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast";
+    el.className = "toast";
+    document.body.appendChild(el);
+  }
+  el.innerHTML = `<strong>${titulo}</strong><br>${texto}`;
+  el.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
 }
 
-function encenderPC() {
-  const pantalla = document.getElementById("pantalla");
-  pantalla.innerText = "🟡 Iniciando...";
-  animarBarra(() => pantalla.innerText = "🟢 Sistema iniciado");
-}
-
-function apagarPC() {
-  const pantalla = document.getElementById("pantalla");
-  pantalla.innerText = "🟠 Apagando...";
-  animarBarra(() => pantalla.innerText = "🔴 PC apagada");
-}
-
-/* ================== “IMÁGENES 3D” (SVG) ==================
-   Son dibujos vectoriales con volumen y brillo, funcionan en PC y celular sin internet.
-*/
+/* ================== “IMÁGENES 3D” (SVG) ================== */
 const visuals = {
   CPU: svgChip("CPU"),
   RAM: svgRam(),
@@ -48,6 +34,14 @@ const visuals = {
   ANTIV: svgShield()
 };
 
+function pins() {
+  let s = "";
+  for (let i = 0; i < 8; i++) {
+    s += `<rect x="35" y="${48 + i*12}" width="14" height="6" rx="3" fill="rgba(34,197,94,0.8)"/>`;
+    s += `<rect x="191" y="${48 + i*12}" width="14" height="6" rx="3" fill="rgba(34,197,94,0.8)"/>`;
+  }
+  return s;
+}
 function svgChip(label) {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -67,16 +61,6 @@ function svgChip(label) {
     <text x="120" y="102" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="22" font-weight="700">${label}</text>
   </svg>`;
 }
-
-function pins() {
-  let s = "";
-  for (let i = 0; i < 8; i++) {
-    s += `<rect x="${35}" y="${48 + i*12}" width="14" height="6" rx="3" fill="rgba(34,197,94,0.8)"/>`;
-    s += `<rect x="${191}" y="${48 + i*12}" width="14" height="6" rx="3" fill="rgba(34,197,94,0.8)"/>`;
-  }
-  return s;
-}
-
 function svgRam() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -92,7 +76,6 @@ function svgRam() {
     <text x="120" y="62" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">RAM</text>
   </svg>`;
 }
-
 function svgDisk() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -109,7 +92,6 @@ function svgDisk() {
     <text x="120" y="30" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">DISCO</text>
   </svg>`;
 }
-
 function svgGpu() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -126,7 +108,6 @@ function svgGpu() {
     <text x="120" y="44" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">GPU</text>
   </svg>`;
 }
-
 function svgBoard() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -143,7 +124,6 @@ function svgBoard() {
     <text x="120" y="28" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">PLACA</text>
   </svg>`;
 }
-
 function svgPsu() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -160,7 +140,6 @@ function svgPsu() {
     <text x="120" y="44" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">FUENTE</text>
   </svg>`;
 }
-
 function svgWindow(label) {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -177,7 +156,6 @@ function svgWindow(label) {
     <text x="120" y="32" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">${label}</text>
   </svg>`;
 }
-
 function svgBox(label) {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -192,7 +170,6 @@ function svgBox(label) {
     <text x="120" y="45" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">${label}</text>
   </svg>`;
 }
-
 function svgGlobe() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -208,7 +185,6 @@ function svgGlobe() {
     <text x="120" y="30" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="18" font-weight="700">WEB</text>
   </svg>`;
 }
-
 function svgShield() {
   return `
   <svg viewBox="0 0 240 180" class="svg3d">
@@ -226,302 +202,226 @@ function svgShield() {
   </svg>`;
 }
 
-/* ================== DETALLES INTERACTIVOS ================== */
+/* ================== DETALLES HARD/SOFT ================== */
 const detalleHardware = {
-  CPU: {
-    titulo: "CPU (Procesador)",
-    texto: "La CPU ejecuta instrucciones y procesa datos. Es el “cerebro” del computador.",
-    partes: [
-      { nombre: "Núcleos", desc: "Ejecutan tareas en paralelo para mayor velocidad." },
-      { nombre: "Caché", desc: "Memoria rápida para acelerar procesos frecuentes." },
-      { nombre: "Frecuencia", desc: "Velocidad de trabajo, medida en GHz." }
-    ]
-  },
-  RAM: {
-    titulo: "Memoria RAM",
-    texto: "Guarda datos temporalmente mientras usas programas. Al apagar, se borra.",
-    partes: [
-      { nombre: "Capacidad", desc: "Cuántos datos puede guardar (GB)." },
-      { nombre: "Velocidad", desc: "Qué tan rápido entrega datos a la CPU." },
-      { nombre: "Latencia", desc: "Tiempo de respuesta de la memoria." }
-    ]
-  },
-  DISCO: {
-    titulo: "Disco (HDD/SSD)",
-    texto: "Almacena archivos de forma permanente: fotos, videos, programas.",
-    partes: [
-      { nombre: "SSD", desc: "Más rápido y resistente, sin partes mecánicas." },
-      { nombre: "HDD", desc: "Más barato, pero más lento." },
-      { nombre: "Capacidad", desc: "Espacio disponible (GB/TB)." }
-    ]
-  },
-  GPU: {
-    titulo: "GPU (Tarjeta Gráfica)",
-    texto: "Procesa gráficos e imágenes. Ayuda en juegos, edición y tareas de IA.",
-    partes: [
-      { nombre: "VRAM", desc: "Memoria de la GPU para texturas y gráficos." },
-      { nombre: "Cores", desc: "Procesan muchos cálculos en paralelo." },
-      { nombre: "Drivers", desc: "Software que permite que funcione bien en el sistema." }
-    ]
-  },
-  PLACA: {
-    titulo: "Placa Base",
-    texto: "Conecta todos los componentes y permite que se comuniquen.",
-    partes: [
-      { nombre: "Socket CPU", desc: "Donde se instala el procesador." },
-      { nombre: "Slots RAM", desc: "Donde se colocan las memorias." },
-      { nombre: "Puertos", desc: "USB, audio, red, etc." }
-    ]
-  },
-  FUENTE: {
-    titulo: "Fuente de Poder",
-    texto: "Convierte energía y la reparte a cada componente con voltaje correcto.",
-    partes: [
-      { nombre: "Watts", desc: "Potencia total disponible (W)." },
-      { nombre: "Protecciones", desc: "Evitan daños por sobrecarga." },
-      { nombre: "Conectores", desc: "Cables para placa, GPU, discos, etc." }
-    ]
-  }
+  CPU: { titulo:"CPU (Procesador)", texto:"La CPU ejecuta instrucciones y procesa datos. Es el “cerebro” del computador.",
+    partes:[{nombre:"Núcleos",desc:"Ejecutan tareas en paralelo."},{nombre:"Caché",desc:"Memoria rápida para acelerar."},{nombre:"GHz",desc:"Frecuencia/velocidad de trabajo."}] },
+  RAM: { titulo:"Memoria RAM", texto:"Guarda datos temporalmente mientras usas programas. Al apagar, se borra.",
+    partes:[{nombre:"Capacidad",desc:"Cantidad de RAM (GB)."}, {nombre:"Velocidad",desc:"Transferencia de datos."}, {nombre:"Latencia",desc:"Tiempo de respuesta."}] },
+  DISCO:{ titulo:"Disco (HDD/SSD)", texto:"Almacena archivos de forma permanente: fotos, videos y programas.",
+    partes:[{nombre:"SSD",desc:"Rápido y resistente."},{nombre:"HDD",desc:"Más barato, más lento."},{nombre:"Capacidad",desc:"Espacio (GB/TB)."}] },
+  GPU:  { titulo:"GPU (Tarjeta gráfica)", texto:"Procesa gráficos e imágenes. Ayuda en juegos, edición y 3D.",
+    partes:[{nombre:"VRAM",desc:"Memoria para texturas."},{nombre:"Cores",desc:"Cálculos en paralelo."},{nombre:"Drivers",desc:"Software que optimiza."}] },
+  PLACA:{ titulo:"Placa Base", texto:"Conecta todos los componentes y permite la comunicación entre ellos.",
+    partes:[{nombre:"Socket",desc:"Lugar del CPU."},{nombre:"Slots RAM",desc:"Lugar de memorias."},{nombre:"Puertos",desc:"USB, red, audio…"}] },
+  FUENTE:{ titulo:"Fuente de poder", texto:"Convierte energía y la reparte a cada componente con voltaje correcto.",
+    partes:[{nombre:"Watts",desc:"Potencia disponible."},{nombre:"Protecciones",desc:"Evitan daños."},{nombre:"Conectores",desc:"Cables para todo."}] }
 };
-
 const detalleSoftware = {
-  SO: {
-    titulo: "Sistema Operativo",
-    texto: "Administra el hardware y permite usar programas (Windows, Linux, etc.).",
-    funciones: [
-      { nombre: "Gestión de procesos", desc: "Organiza tareas y rendimiento." },
-      { nombre: "Gestión de memoria", desc: "Controla RAM y uso de recursos." },
-      { nombre: "Interfaz", desc: "Permite interactuar con el usuario." }
-    ]
-  },
-  APP: {
-    titulo: "Programas (Apps)",
-    texto: "Aplicaciones para tareas: Office, editores, reproductores, etc.",
-    funciones: [
-      { nombre: "Productividad", desc: "Word, Excel, Docs…" },
-      { nombre: "Edición", desc: "Fotos, video, audio…" },
-      { nombre: "Comunicación", desc: "Chat, correo, videollamadas…" }
-    ]
-  },
-  NAV: {
-    titulo: "Navegador",
-    texto: "Permite acceder a páginas web: Chrome, Edge, Firefox, etc.",
-    funciones: [
-      { nombre: "Pestañas", desc: "Abrir varias páginas a la vez." },
-      { nombre: "Historial", desc: "Registro de páginas visitadas." },
-      { nombre: "Descargas", desc: "Guardar archivos desde internet." }
-    ]
-  },
-  ANTIV: {
-    titulo: "Antivirus",
-    texto: "Protege contra malware y amenazas. Escanea y bloquea riesgos.",
-    funciones: [
-      { nombre: "Escaneo", desc: "Revisa archivos y detecta amenazas." },
-      { nombre: "Tiempo real", desc: "Bloquea ataques mientras navegas." },
-      { nombre: "Cuarentena", desc: "Aísla archivos peligrosos." }
-    ]
-  }
+  SO:{ titulo:"Sistema Operativo", texto:"Administra hardware y permite usar programas.",
+    funciones:[{nombre:"Procesos",desc:"Organiza tareas."},{nombre:"Memoria",desc:"Controla uso de RAM."},{nombre:"Interfaz",desc:"Ventanas/menús."}] },
+  APP:{ titulo:"Programas", texto:"Aplicaciones para tareas: Office, editores, etc.",
+    funciones:[{nombre:"Productividad",desc:"Documentos y tablas."},{nombre:"Edición",desc:"Foto/video/audio."},{nombre:"Comunicación",desc:"Chat/correo."}] },
+  NAV:{ titulo:"Navegador", texto:"Permite acceder a páginas web.",
+    funciones:[{nombre:"Pestañas",desc:"Varias páginas a la vez."},{nombre:"Historial",desc:"Registro de visitas."},{nombre:"Descargas",desc:"Guardar archivos."}] },
+  ANTIV:{ titulo:"Antivirus", texto:"Protege contra malware.",
+    funciones:[{nombre:"Escaneo",desc:"Detecta amenazas."},{nombre:"Tiempo real",desc:"Bloquea ataques."},{nombre:"Cuarentena",desc:"Aísla archivos."}] }
 };
 
-function abrirDetalle(key) {
-  // Hardware
-  if (detalleHardware[key]) {
-    const panel = document.getElementById("panelDetalle");
-    panel.classList.remove("oculto");
-    document.getElementById("detalleTitulo").innerText = detalleHardware[key].titulo;
-    document.getElementById("detalleTexto").innerText = detalleHardware[key].texto;
-
+function abrirDetalle(key){
+  if (detalleHardware[key]){
+    const d = detalleHardware[key];
+    document.getElementById("panelDetalle").classList.remove("oculto");
+    document.getElementById("detalleTitulo").innerText = d.titulo;
+    document.getElementById("detalleTexto").innerText = d.texto;
     document.getElementById("detalleVisual").innerHTML = visuals[key] || "";
-
     const cont = document.getElementById("detallePartes");
     cont.innerHTML = "";
-    detalleHardware[key].partes.forEach(p => {
-      const b = document.createElement("button");
-      b.className = "chip";
-      b.innerText = p.nombre;
-      b.onclick = () => toast(p.nombre, p.desc);
+    d.partes.forEach(p=>{
+      const b=document.createElement("button");
+      b.className="chip";
+      b.innerText=p.nombre;
+      b.onclick=()=>toast(p.nombre,p.desc);
       cont.appendChild(b);
     });
     return;
   }
-
-  // Software
-  if (detalleSoftware[key]) {
-    const panel = document.getElementById("panelDetalleSoft");
-    panel.classList.remove("oculto");
-    document.getElementById("detalleTituloSoft").innerText = detalleSoftware[key].titulo;
-    document.getElementById("detalleTextoSoft").innerText = detalleSoftware[key].texto;
-
+  if (detalleSoftware[key]){
+    const d = detalleSoftware[key];
+    document.getElementById("panelDetalleSoft").classList.remove("oculto");
+    document.getElementById("detalleTituloSoft").innerText = d.titulo;
+    document.getElementById("detalleTextoSoft").innerText = d.texto;
     document.getElementById("detalleVisualSoft").innerHTML = visuals[key] || "";
-
     const cont = document.getElementById("detallePartesSoft");
     cont.innerHTML = "";
-    detalleSoftware[key].funciones.forEach(f => {
-      const b = document.createElement("button");
-      b.className = "chip";
-      b.innerText = f.nombre;
-      b.onclick = () => toast(f.nombre, f.desc);
+    d.funciones.forEach(f=>{
+      const b=document.createElement("button");
+      b.className="chip";
+      b.innerText=f.nombre;
+      b.onclick=()=>toast(f.nombre,f.desc);
       cont.appendChild(b);
     });
   }
 }
+function cerrarDetalle(){ document.getElementById("panelDetalle").classList.add("oculto"); }
+function cerrarDetalleSoft(){ document.getElementById("panelDetalleSoft").classList.add("oculto"); }
 
-function cerrarDetalle() {
-  document.getElementById("panelDetalle").classList.add("oculto");
-}
-
-function cerrarDetalleSoft() {
-  document.getElementById("panelDetalleSoft").classList.add("oculto");
-}
-
-/* ================== TOAST (mensajito bonito) ================== */
-let toastTimer = null;
-function toast(titulo, texto) {
-  let el = document.getElementById("toast");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "toast";
-    el.className = "toast";
-    document.body.appendChild(el);
-  }
-  el.innerHTML = `<strong>${titulo}</strong><br>${texto}`;
-  el.classList.add("show");
-
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
-}
-
-/* ================== QUIZ con IMÁGENES ================== */
+/* ================== QUIZ (con imágenes) ================== */
 const preguntas = [
-  {
-    pregunta: "¿Cuál es el cerebro del computador?",
-    opciones: [
-      { label: "CPU", img: "CPU" },
-      { label: "RAM", img: "RAM" },
-      { label: "Disco", img: "DISCO" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué memoria es temporal?",
-    opciones: [
-      { label: "Disco", img: "DISCO" },
-      { label: "RAM", img: "RAM" },
-      { label: "GPU", img: "GPU" }
-    ],
-    correcta: 1
-  },
-  {
-    pregunta: "¿Dónde se guardan archivos permanentemente?",
-    opciones: [
-      { label: "Disco", img: "DISCO" },
-      { label: "CPU", img: "CPU" },
-      { label: "RAM", img: "RAM" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué componente se encarga de gráficos?",
-    opciones: [
-      { label: "GPU", img: "GPU" },
-      { label: "Fuente", img: "FUENTE" },
-      { label: "Placa", img: "PLACA" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué conecta todos los componentes?",
-    opciones: [
-      { label: "Placa Base", img: "PLACA" },
-      { label: "Disco", img: "DISCO" },
-      { label: "GPU", img: "GPU" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué software controla el hardware?",
-    opciones: [
-      { label: "Sistema Operativo", img: "SO" },
-      { label: "Navegador", img: "NAV" },
-      { label: "Antivirus", img: "ANTIV" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué permite navegar en internet?",
-    opciones: [
-      { label: "Navegador", img: "NAV" },
-      { label: "CPU", img: "CPU" },
-      { label: "RAM", img: "RAM" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué protege contra virus?",
-    opciones: [
-      { label: "Antivirus", img: "ANTIV" },
-      { label: "RAM", img: "RAM" },
-      { label: "Disco", img: "DISCO" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué convierte energía para el PC?",
-    opciones: [
-      { label: "Fuente", img: "FUENTE" },
-      { label: "GPU", img: "GPU" },
-      { label: "SO", img: "SO" }
-    ],
-    correcta: 0
-  },
-  {
-    pregunta: "¿Qué se borra al apagar el PC?",
-    opciones: [
-      { label: "RAM", img: "RAM" },
-      { label: "Disco", img: "DISCO" },
-      { label: "Placa", img: "PLACA" }
-    ],
-    correcta: 0
-  }
+  { pregunta:"¿Cuál es el cerebro del computador?", opciones:[{label:"CPU",img:"CPU"},{label:"RAM",img:"RAM"},{label:"Disco",img:"DISCO"}], correcta:0 },
+  { pregunta:"¿Qué memoria es temporal?", opciones:[{label:"RAM",img:"RAM"},{label:"Disco",img:"DISCO"},{label:"GPU",img:"GPU"}], correcta:0 },
+  { pregunta:"¿Dónde se guardan archivos permanentemente?", opciones:[{label:"Disco",img:"DISCO"},{label:"CPU",img:"CPU"},{label:"RAM",img:"RAM"}], correcta:0 },
+  { pregunta:"¿Qué componente se encarga de gráficos?", opciones:[{label:"GPU",img:"GPU"},{label:"Fuente",img:"FUENTE"},{label:"Placa",img:"PLACA"}], correcta:0 },
+  { pregunta:"¿Qué conecta todos los componentes?", opciones:[{label:"Placa Base",img:"PLACA"},{label:"Disco",img:"DISCO"},{label:"GPU",img:"GPU"}], correcta:0 },
+  { pregunta:"¿Qué software controla el hardware?", opciones:[{label:"Sistema Operativo",img:"SO"},{label:"Navegador",img:"NAV"},{label:"Antivirus",img:"ANTIV"}], correcta:0 },
+  { pregunta:"¿Qué permite navegar en internet?", opciones:[{label:"Navegador",img:"NAV"},{label:"CPU",img:"CPU"},{label:"RAM",img:"RAM"}], correcta:0 },
+  { pregunta:"¿Qué protege contra virus?", opciones:[{label:"Antivirus",img:"ANTIV"},{label:"RAM",img:"RAM"},{label:"Disco",img:"DISCO"}], correcta:0 },
+  { pregunta:"¿Qué convierte energía para el PC?", opciones:[{label:"Fuente",img:"FUENTE"},{label:"GPU",img:"GPU"},{label:"Placa",img:"PLACA"}], correcta:0 },
+  { pregunta:"¿Qué se borra al apagar el PC?", opciones:[{label:"RAM",img:"RAM"},{label:"Disco",img:"DISCO"},{label:"CPU",img:"CPU"}], correcta:0 }
 ];
+let quizActual = 0;
+let quizPuntos = 0;
 
-let actual = 0;
-let puntos = 0;
-
-function cargarPregunta() {
-  const p = preguntas[actual];
+function cargarPregunta(){
+  const p = preguntas[quizActual];
   document.getElementById("pregunta").innerText = p.pregunta;
-
   const cont = document.getElementById("respuestas");
   cont.innerHTML = "";
-
-  p.opciones.forEach((op, i) => {
+  p.opciones.forEach((op,i)=>{
     const card = document.createElement("button");
     card.className = "quizCard";
-    card.innerHTML = `
-      <div class="quizImg">${visuals[op.img] || ""}</div>
-      <div class="quizLbl">${op.label}</div>
-    `;
-    card.onclick = () => verificar(i);
+    card.innerHTML = `<div class="quizImg">${visuals[op.img]||""}</div><div class="quizLbl">${op.label}</div>`;
+    card.onclick = ()=>verificar(i);
     cont.appendChild(card);
   });
 }
-
-function verificar(i) {
-  if (i === preguntas[actual].correcta) {
-    puntos++;
-    toast("✅ Correcto", "Buen trabajo.");
-  } else {
-    toast("❌ Incorrecto", "Sigue intentando.");
-  }
-  document.getElementById("puntos").innerText = puntos;
-
-  actual++;
-  if (actual < preguntas.length) {
-    cargarPregunta();
-  } else {
+function verificar(i){
+  if (i === preguntas[quizActual].correcta){ quizPuntos++; toast("✅ Correcto","Bien."); }
+  else toast("❌ Incorrecto","Intenta otra vez.");
+  document.getElementById("puntos").innerText = quizPuntos;
+  quizActual++;
+  if (quizActual < preguntas.length) cargarPregunta();
+  else{
     document.getElementById("pregunta").innerText = "🎉 Quiz terminado";
     document.getElementById("respuestas").innerHTML = "";
+  }
+}
+
+/* ================== PC 3D: Rotar + Zoom + Info ================== */
+const pcStage = document.getElementById("pcStage");
+const pcModel = document.getElementById("pcModel");
+const zoomRange = document.getElementById("zoomRange");
+
+let rotX = -10;
+let rotY = 25;
+let zoom = 1;
+
+function aplicarTransform(){
+  pcModel.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${zoom})`;
+}
+function resetVista(){
+  rotX = -10; rotY = 25; zoom = 1;
+  zoomRange.value = "1";
+  aplicarTransform();
+}
+zoomRange.addEventListener("input", () => {
+  zoom = parseFloat(zoomRange.value);
+  aplicarTransform();
+});
+
+let dragging = false;
+let lastX = 0, lastY = 0;
+
+function pointerDown(e){
+  dragging = true;
+  const p = getPoint(e);
+  lastX = p.x; lastY = p.y;
+}
+function pointerMove(e){
+  if(!dragging) return;
+  const p = getPoint(e);
+  const dx = p.x - lastX;
+  const dy = p.y - lastY;
+  lastX = p.x; lastY = p.y;
+
+  rotY += dx * 0.35;
+  rotX -= dy * 0.25;
+
+  // límites para que no se volteé raro
+  rotX = Math.max(-35, Math.min(20, rotX));
+  aplicarTransform();
+}
+function pointerUp(){ dragging = false; }
+
+function getPoint(e){
+  if (e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+  return {x:e.clientX, y:e.clientY};
+}
+
+pcStage.addEventListener("mousedown", pointerDown);
+pcStage.addEventListener("mousemove", pointerMove);
+window.addEventListener("mouseup", pointerUp);
+
+pcStage.addEventListener("touchstart", (e)=>{ pointerDown(e); }, {passive:true});
+pcStage.addEventListener("touchmove", (e)=>{ pointerMove(e); }, {passive:true});
+pcStage.addEventListener("touchend", pointerUp);
+
+const pcInfoTitle = document.getElementById("pcInfoTitle");
+const pcInfoText  = document.getElementById("pcInfoText");
+const pcInfoExtra = document.getElementById("pcInfoExtra");
+
+function cerrarPCInfo(){
+  pcInfoTitle.innerText = "Toca una parte";
+  pcInfoText.innerText = "Selecciona Monitor, Case o un componente dentro del Case para ver detalles.";
+  pcInfoExtra.innerHTML = "";
+}
+
+function kv(label, value){
+  return `<div class="kv"><span>${label}</span><strong>${value}</strong></div>`;
+}
+
+function infoPC(key){
+  pcInfoExtra.innerHTML = "";
+
+  if (key === "MONITOR"){
+    pcInfoTitle.innerText = "Monitor";
+    pcInfoText.innerText = "Dispositivo de salida: muestra imagen, color y movimiento. Ideal para juegos/diseño según sus especificaciones.";
+    pcInfoExtra.innerHTML = [
+      kv("Resolución", "1920×1080 (Full HD)"),
+      kv("Frecuencia", "144 Hz"),
+      kv("Tiempo respuesta", "1–5 ms"),
+      kv("Panel", "IPS / VA (según modelo)"),
+    ].join("");
+    toast("Monitor","Mostrando especificaciones.");
+    return;
+  }
+
+  if (key === "CASE"){
+    pcInfoTitle.innerText = "Case (Gabinete)";
+    pcInfoText.innerText = "Protege los componentes, ayuda a la ventilación y organiza cables. Toca un componente (CPU, RAM, GPU…) para ver su descripción.";
+    pcInfoExtra.innerHTML = [
+      kv("Ventilación", "2 ventiladores frontales"),
+      kv("Puertos", "USB, Audio"),
+      kv("Tamaño", "Torre media"),
+    ].join("");
+    toast("Case","Toca un componente dentro.");
+    return;
+  }
+
+  const map = {
+    CPU_IN: {t:"CPU", txt:"Procesador: ejecuta instrucciones y calcula.", extra:[kv("Rol","Procesamiento"), kv("Unidad","GHz / Núcleos")]},
+    RAM_IN: {t:"RAM", txt:"Memoria temporal: acelera multitarea.", extra:[kv("Rol","Memoria temporal"), kv("Unidad","GB / MHz")]},
+    GPU_IN: {t:"GPU", txt:"Gráficos: renderiza imágenes y video.", extra:[kv("Rol","Gráficos/3D"), kv("Unidad","VRAM (GB)")]},
+    DISCO_IN:{t:"Disco", txt:"Almacenamiento permanente de archivos.", extra:[kv("Tipo","SSD/HDD"), kv("Unidad","GB / TB")]},
+    FUENTE_IN:{t:"Fuente", txt:"Convierte energía y alimenta el PC.", extra:[kv("Potencia","450–750 W"), kv("Protección","Sobrecarga/Voltaje")]},
+    PLACA_IN:{t:"Placa Base", txt:"Conecta y coordina componentes.", extra:[kv("Conecta","CPU/RAM/Disco"), kv("Puertos","USB/Red/Audio")]},
+  };
+
+  if (map[key]){
+    pcInfoTitle.innerText = map[key].t;
+    pcInfoText.innerText = map[key].txt;
+    pcInfoExtra.innerHTML = map[key].extra.join("");
+    toast(map[key].t,"Detalle del componente.");
   }
 }
 
@@ -529,53 +429,54 @@ function verificar(i) {
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
+function resizeCanvas(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 resizeCanvas();
 
 let particles = [];
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 70; i++){
   particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 2 + 1,
-    d: Math.random() * 1 + 0.2
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*2 + 1,
+    d: Math.random()*1 + 0.25
   });
 }
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle = "rgba(255,255,255,0.45)";
   ctx.beginPath();
-  particles.forEach(p => {
-    ctx.moveTo(p.x, p.y);
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-  });
+  for (const p of particles){
+    ctx.moveTo(p.x,p.y);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  }
   ctx.fill();
 
-  particles.forEach(p => {
+  for (const p of particles){
     p.y += p.d;
-    if (p.y > canvas.height) {
+    if (p.y > canvas.height){
       p.y = 0;
-      p.x = Math.random() * canvas.width;
+      p.x = Math.random()*canvas.width;
     }
-  });
-
+  }
   requestAnimationFrame(draw);
 }
 draw();
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize", ()=>{
   resizeCanvas();
-  particles = particles.map(p => ({
+  particles = particles.map(p=>({
     ...p,
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height
   }));
 });
 
 /* ================== INICIO ================== */
 mostrarSeccion("hardware");
 cargarPregunta();
+aplicarTransform();
+cerrarPCInfo();
