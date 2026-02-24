@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explorador Interactivo de la Computadora</title>
-
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -23,74 +22,55 @@
 </nav>
 
 <!-- HARDWARE -->
-<section id="hardware" class="seccion activa">
+<div id="hardware" class="seccion">
   <h2>🖥️ Hardware</h2>
 
   <div class="grid">
-    <div class="card" onclick="mostrarInfo('CPU', 'La CPU es el cerebro del computador. Procesa datos y ejecuta instrucciones.')">CPU</div>
-    <div class="card" onclick="mostrarInfo('RAM', 'La RAM almacena información temporal mientras el equipo está encendido.')">RAM</div>
-    <div class="card" onclick="mostrarInfo('Disco Duro', 'Almacena archivos de forma permanente.')">Disco Duro</div>
-    <div class="card" onclick="mostrarInfo('Placa Base', 'Conecta todos los componentes.')">Placa Base</div>
+    <div class="card" onclick="mostrarInfo('La CPU es el cerebro del computador.')">CPU</div>
+    <div class="card" onclick="mostrarInfo('La RAM almacena información temporal.')">RAM</div>
+    <div class="card" onclick="mostrarInfo('El Disco Duro almacena archivos.')">Disco Duro</div>
+    <div class="card" onclick="mostrarInfo('La Placa Base conecta todo.')">Placa Base</div>
   </div>
-</section>
+
+  <p id="info"></p>
+</div>
 
 <!-- SOFTWARE -->
-<section id="software" class="seccion">
+<div id="software" class="seccion">
   <h2>💿 Software</h2>
 
   <div class="grid">
-    <div class="card" onclick="mostrarInfo('Sistema Operativo', 'Controla el hardware y permite usar programas.')">Sistema Operativo</div>
-    <div class="card" onclick="mostrarInfo('Programas', 'Permiten realizar tareas específicas.')">Programas</div>
-    <div class="card" onclick="mostrarInfo('Navegadores', 'Permiten acceder a internet.')">Navegadores</div>
+    <div class="card" onclick="mostrarInfo('El Sistema Operativo controla el hardware.')">Sistema Operativo</div>
+    <div class="card" onclick="mostrarInfo('Los programas realizan tareas.')">Programas</div>
+    <div class="card" onclick="mostrarInfo('Los navegadores permiten usar internet.')">Navegadores</div>
   </div>
-</section>
 
-<!-- QUIZ -->
-<section id="quiz" class="seccion">
-  <h2>🧠 Quiz</h2>
-
-  <div class="quiz-box">
-    <p>¿Cuál es el cerebro del computador?</p>
-    <button onclick="respuesta(true)">CPU</button>
-    <button onclick="respuesta(false)">RAM</button>
-
-    <p>¿Qué memoria es temporal?</p>
-    <button onclick="respuesta(false)">Disco Duro</button>
-    <button onclick="respuesta(true)">RAM</button>
-
-    <p>¿Qué componente almacena archivos?</p>
-    <button onclick="respuesta(true)">Disco Duro</button>
-    <button onclick="respuesta(false)">CPU</button>
-
-    <p>¿Qué controla todo el sistema?</p>
-    <button onclick="respuesta(true)">Sistema Operativo</button>
-    <button onclick="respuesta(false)">Monitor</button>
-
-    <p class="puntos">Puntos: <span id="puntos">0</span></p>
-  </div>
-</section>
-
-<!-- SIMULACIÓN -->
-<section id="simulacion" class="seccion">
-  <h2>⚙️ Simulación</h2>
-
-  <button class="power" onclick="encenderPC()">Encender / Apagar</button>
-
-  <div id="pantalla" class="pantalla apagada">
-    🔴 PC apagada
-  </div>
-</section>
-
-<!-- Ventana emergente -->
-<div id="ventana" class="ventana oculto">
-  <div class="ventana-contenido">
-    <h3 id="tituloVentana"></h3>
-    <p id="textoVentana"></p>
-    <button onclick="cerrarVentana()">Cerrar</button>
-  </div>
+  <p id="info"></p>
 </div>
 
-<script src="script.js?v=3"></script>
+<!-- QUIZ -->
+<div id="quiz" class="seccion">
+  <h2>🧠 Quiz</h2>
+
+  <p>¿Cuál es el cerebro del computador?</p>
+  <button onclick="respuesta(true)">CPU</button>
+  <button onclick="respuesta(false)">RAM</button>
+
+  <p>¿Qué memoria es temporal?</p>
+  <button onclick="respuesta(false)">Disco Duro</button>
+  <button onclick="respuesta(true)">RAM</button>
+
+  <p>Puntos: <span id="puntos">0</span></p>
+</div>
+
+<!-- SIMULACIÓN -->
+<div id="simulacion" class="seccion">
+  <h2>⚙️ Simulación</h2>
+  <button onclick="encenderPC()">Encender PC</button>
+  <p id="pantalla">🔴 PC apagada</p>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
