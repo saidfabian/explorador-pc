@@ -1,120 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explorador Interactivo</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 
 <body>
+  <canvas id="particles"></canvas>
 
-<canvas id="particles"></canvas>
+  <header class="glass">
+    <h1>💻 Explorador Interactivo</h1>
+    <p>Proyecto de Informática</p>
+  </header>
 
-<header class="glass">
-  <h1>💻 Explorador Interactivo</h1>
-  <p>Proyecto de Informática</p>
-</header>
+  <nav class="glass nav">
+    <button onclick="mostrarSeccion('hardware')">Hardware</button>
+    <button onclick="mostrarSeccion('software')">Software</button>
+    <button onclick="mostrarSeccion('quiz')">Quiz</button>
+    <button onclick="mostrarSeccion('pc3d')">PC 3D</button>
+  </nav>
 
-<nav class="glass nav">
-  <button onclick="mostrarSeccion('hardware')">Hardware</button>
-  <button onclick="mostrarSeccion('software')">Software</button>
-  <button onclick="mostrarSeccion('quiz')">Quiz</button>
-  <button onclick="mostrarSeccion('simulacion')">Simulación</button>
-</nav>
+  <div class="window glass">
 
-<div class="window glass">
+    <!-- HARDWARE -->
+    <div id="hardware" class="seccion">
+      <h2>🖥️ Hardware</h2>
+      <div class="grid">
+        <div class="card" onclick="abrirDetalle('CPU')">🧠 CPU</div>
+        <div class="card" onclick="abrirDetalle('RAM')">⚡ RAM</div>
+        <div class="card" onclick="abrirDetalle('DISCO')">💾 Disco</div>
+        <div class="card" onclick="abrirDetalle('GPU')">🎮 GPU</div>
+        <div class="card" onclick="abrirDetalle('PLACA')">🔌 Placa Base</div>
+        <div class="card" onclick="abrirDetalle('FUENTE')">🔋 Fuente</div>
+      </div>
 
-  <!-- HARDWARE -->
-  <div id="hardware" class="seccion">
-    <h2>🖥️ Hardware</h2>
-    <div class="grid">
-      <div class="card" onclick="abrirDetalle('CPU')">🧠 CPU</div>
-      <div class="card" onclick="abrirDetalle('RAM')">⚡ RAM</div>
-      <div class="card" onclick="abrirDetalle('DISCO')">💾 Disco</div>
-      <div class="card" onclick="abrirDetalle('GPU')">🎮 GPU</div>
-      <div class="card" onclick="abrirDetalle('PLACA')">🔌 Placa Base</div>
-      <div class="card" onclick="abrirDetalle('FUENTE')">🔋 Fuente</div>
+      <div id="panelDetalle" class="detalle oculto">
+        <div class="detalleHeader">
+          <h3 id="detalleTitulo">Detalle</h3>
+          <button class="btnClose" onclick="cerrarDetalle()">✖</button>
+        </div>
+        <p id="detalleTexto"></p>
+
+        <div class="detalleGrid">
+          <div class="detalleVisual" id="detalleVisual"></div>
+          <div class="detallePartes">
+            <h4>Partes</h4>
+            <div id="detallePartes"></div>
+          </div>
+        </div>
+
+        <p class="hint">Tip: toca una parte para ver su función.</p>
+      </div>
     </div>
 
-    <div id="panelDetalle" class="detalle oculto">
-      <div class="detalleHeader">
-        <h3 id="detalleTitulo">Detalle</h3>
-        <button class="btnClose" onclick="cerrarDetalle()">✖</button>
+    <!-- SOFTWARE -->
+    <div id="software" class="seccion">
+      <h2>💿 Software</h2>
+      <div class="grid">
+        <div class="card" onclick="abrirDetalle('SO')">🖥️ Sistema Operativo</div>
+        <div class="card" onclick="abrirDetalle('APP')">📦 Programas</div>
+        <div class="card" onclick="abrirDetalle('NAV')">🌐 Navegador</div>
+        <div class="card" onclick="abrirDetalle('ANTIV')">🛡️ Antivirus</div>
       </div>
-      <p id="detalleTexto"></p>
 
-      <div class="detalleGrid">
-        <div class="detalleVisual" id="detalleVisual"></div>
+      <div id="panelDetalleSoft" class="detalle oculto">
+        <div class="detalleHeader">
+          <h3 id="detalleTituloSoft">Detalle</h3>
+          <button class="btnClose" onclick="cerrarDetalleSoft()">✖</button>
+        </div>
+        <p id="detalleTextoSoft"></p>
 
-        <div class="detallePartes">
-          <h4>Partes</h4>
-          <div id="detallePartes"></div>
+        <div class="detalleGrid">
+          <div class="detalleVisual" id="detalleVisualSoft"></div>
+          <div class="detallePartes">
+            <h4>Funciones</h4>
+            <div id="detallePartesSoft"></div>
+          </div>
+        </div>
+
+        <p class="hint">Tip: toca una función para ver un ejemplo.</p>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz" class="seccion">
+      <h2>🧠 Quiz</h2>
+      <div class="quiz-box">
+        <p id="pregunta"></p>
+        <div id="respuestas" class="quizOpciones"></div>
+        <p>Puntos: <span id="puntos">0</span></p>
+      </div>
+    </div>
+
+    <!-- PC 3D -->
+    <div id="pc3d" class="seccion">
+      <h2>🖱️ PC 3D Interactiva</h2>
+      <p class="sub">Arrastra para girar • Usa el zoom para acercar/alejar • Toca Monitor o Case</p>
+
+      <div class="pcTools">
+        <label class="zoomLabel">
+          Zoom
+          <input id="zoomRange" type="range" min="0.8" max="1.5" step="0.01" value="1" />
+        </label>
+        <button class="smallBtn" onclick="resetVista()">Reset Vista</button>
+      </div>
+
+      <div class="pcStage" id="pcStage">
+        <div class="pcModel" id="pcModel" aria-label="Modelo 3D de PC">
+          <!-- MONITOR -->
+          <div class="monitor" data-part="MONITOR" onclick="infoPC('MONITOR')">
+            <div class="screen">
+              <div class="screenGlow"></div>
+              <div class="screenText">
+                <strong>Monitor</strong><br />
+                Toca para info
+              </div>
+            </div>
+            <div class="stand"></div>
+            <div class="base"></div>
+          </div>
+
+          <!-- CASE -->
+          <div class="case" data-part="CASE" onclick="infoPC('CASE')">
+            <div class="caseFront">
+              <div class="fan"></div>
+              <div class="fan fan2"></div>
+              <div class="io"></div>
+            </div>
+            <div class="caseSide"></div>
+
+            <!-- hotspots dentro del case -->
+            <button class="hotspot hs-cpu" onclick="event.stopPropagation(); infoPC('CPU_IN')">CPU</button>
+            <button class="hotspot hs-ram" onclick="event.stopPropagation(); infoPC('RAM_IN')">RAM</button>
+            <button class="hotspot hs-gpu" onclick="event.stopPropagation(); infoPC('GPU_IN')">GPU</button>
+            <button class="hotspot hs-disk" onclick="event.stopPropagation(); infoPC('DISCO_IN')">SSD/HDD</button>
+            <button class="hotspot hs-psu" onclick="event.stopPropagation(); infoPC('FUENTE_IN')">PSU</button>
+            <button class="hotspot hs-mobo" onclick="event.stopPropagation(); infoPC('PLACA_IN')">MB</button>
+          </div>
         </div>
       </div>
 
-      <p class="hint">Tip: toca una parte para ver su función.</p>
-    </div>
-  </div>
-
-  <!-- SOFTWARE -->
-  <div id="software" class="seccion">
-    <h2>💿 Software</h2>
-    <div class="grid">
-      <div class="card" onclick="abrirDetalle('SO')">🖥️ Sistema Operativo</div>
-      <div class="card" onclick="abrirDetalle('APP')">📦 Programas</div>
-      <div class="card" onclick="abrirDetalle('NAV')">🌐 Navegador</div>
-      <div class="card" onclick="abrirDetalle('ANTIV')">🛡️ Antivirus</div>
-    </div>
-
-    <div id="panelDetalleSoft" class="detalle oculto">
-      <div class="detalleHeader">
-        <h3 id="detalleTituloSoft">Detalle</h3>
-        <button class="btnClose" onclick="cerrarDetalleSoft()">✖</button>
-      </div>
-      <p id="detalleTextoSoft"></p>
-
-      <div class="detalleGrid">
-        <div class="detalleVisual" id="detalleVisualSoft"></div>
-
-        <div class="detallePartes">
-          <h4>Funciones</h4>
-          <div id="detallePartesSoft"></div>
+      <div class="pcInfo glass" id="pcInfo">
+        <div class="detalleHeader">
+          <h3 id="pcInfoTitle">Toca una parte</h3>
+          <button class="btnClose" onclick="cerrarPCInfo()">✖</button>
         </div>
+        <p id="pcInfoText">Selecciona Monitor, Case o un componente dentro del Case para ver detalles.</p>
+        <div id="pcInfoExtra" class="pcInfoExtra"></div>
       </div>
-
-      <p class="hint">Tip: toca una función para ver un ejemplo.</p>
     </div>
+
   </div>
 
-  <!-- QUIZ -->
-  <div id="quiz" class="seccion">
-    <h2>🧠 Quiz</h2>
-
-    <div class="quiz-box">
-      <p id="pregunta"></p>
-      <div id="respuestas" class="quizOpciones"></div>
-      <p>Puntos: <span id="puntos">0</span></p>
-    </div>
-  </div>
-
-  <!-- SIMULACIÓN -->
-  <div id="simulacion" class="seccion">
-    <h2>⚙️ Simulación</h2>
-
-    <div class="power-panel">
-      <button onclick="encenderPC()">🟢 Encender</button>
-      <button onclick="apagarPC()">🔴 Apagar</button>
-      <div class="barra">
-        <div id="progreso"></div>
-      </div>
-      <p id="pantalla">🔴 PC apagada</p>
-    </div>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
+
 
