@@ -22,77 +22,73 @@
 </nav>
 
 <!-- HARDWARE -->
-<div id="hardware" class="seccion">
+<section id="hardware" class="seccion">
   <h2>🖥️ Hardware</h2>
 
   <div class="grid">
-    <div class="card" onclick="mostrarInfo('La CPU es el cerebro del computador. Procesa datos y ejecuta instrucciones.')">
-      CPU
-    </div>
-
-    <div class="card" onclick="mostrarInfo('La RAM almacena información temporal mientras el equipo está encendido.')">
-      RAM
-    </div>
-
-    <div class="card" onclick="mostrarInfo('El Disco Duro almacena archivos de forma permanente.')">
-      Disco Duro
-    </div>
-
-    <div class="card" onclick="mostrarInfo('La Placa Base conecta todos los componentes del computador.')">
-      Placa Base
-    </div>
+    <div class="card" onclick="mostrarInfo('La CPU es el cerebro del computador. Procesa datos y ejecuta instrucciones.')">CPU</div>
+    <div class="card" onclick="mostrarInfo('La RAM almacena información temporal mientras el equipo está encendido.')">RAM</div>
+    <div class="card" onclick="mostrarInfo('El Disco Duro almacena archivos de forma permanente.')">Disco Duro</div>
+    <div class="card" onclick="mostrarInfo('La Placa Base conecta todos los componentes del computador.')">Placa Base</div>
   </div>
 
   <p id="info"></p>
-</div>
+</section>
 
 <!-- SOFTWARE -->
-<div id="software" class="seccion">
+<section id="software" class="seccion">
   <h2>💿 Software</h2>
 
   <div class="grid">
-    <div class="card" onclick="mostrarInfo('El Sistema Operativo controla el hardware y permite usar programas.')">
-      Sistema Operativo
-    </div>
-
-    <div class="card" onclick="mostrarInfo('Los programas permiten realizar tareas como escribir o navegar.')">
-      Programas
-    </div>
-
-    <div class="card" onclick="mostrarInfo('Los navegadores permiten acceder a internet.')">
-      Navegadores
-    </div>
+    <div class="card" onclick="mostrarInfo('El Sistema Operativo controla el hardware y permite usar programas.')">Sistema Operativo</div>
+    <div class="card" onclick="mostrarInfo('Los programas permiten realizar tareas específicas.')">Programas</div>
+    <div class="card" onclick="mostrarInfo('Los navegadores permiten acceder a internet.')">Navegadores</div>
   </div>
 
   <p id="info"></p>
-</div>
+</section>
 
 <!-- QUIZ -->
-<div id="quiz" class="seccion">
+<section id="quiz" class="seccion">
   <h2>🧠 Quiz</h2>
 
-  <p>¿Cuál es el cerebro del computador?</p>
-  <button onclick="respuesta(true)">CPU</button>
-  <button onclick="respuesta(false)">RAM</button>
+  <div class="quiz">
+    <p>¿Cuál es el cerebro del computador?</p>
+    <button onclick="respuesta(true)">CPU</button>
+    <button onclick="respuesta(false)">RAM</button>
 
-  <p>¿Qué memoria es temporal?</p>
-  <button onclick="respuesta(false)">Disco Duro</button>
-  <button onclick="respuesta(true)">RAM</button>
+    <p>¿Qué memoria es temporal?</p>
+    <button onclick="respuesta(false)">Disco Duro</button>
+    <button onclick="respuesta(true)">RAM</button>
 
-  <p>Puntos: <span id="puntos">0</span></p>
-</div>
+    <p>¿Qué componente almacena archivos permanentemente?</p>
+    <button onclick="respuesta(true)">Disco Duro</button>
+    <button onclick="respuesta(false)">RAM</button>
+
+    <p>¿Qué conecta todos los componentes?</p>
+    <button onclick="respuesta(true)">Placa Base</button>
+    <button onclick="respuesta(false)">CPU</button>
+
+    <p>¿Qué software controla el hardware?</p>
+    <button onclick="respuesta(true)">Sistema Operativo</button>
+    <button onclick="respuesta(false)">Navegador</button>
+  </div>
+
+  <p class="puntos">Puntos: <span id="puntos">0</span></p>
+</section>
 
 <!-- SIMULACIÓN -->
-<div id="simulacion" class="seccion">
+<section id="simulacion" class="seccion">
   <h2>⚙️ Simulación</h2>
 
-  <button onclick="encenderPC()">Encender PC</button>
+  <button class="power" onclick="encenderPC()">Encender / Apagar PC</button>
 
   <p id="pantalla">🔴 PC apagada</p>
-</div>
+</section>
 
 <script src="script.js"></script>
 
 </body>
 </html>
+
 
