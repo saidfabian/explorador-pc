@@ -107,3 +107,25 @@ nav button:hover {
   margin-top: 15px;
   font-size: 18px;
 }
+/* Animación de arranque */
+.boot {
+  animation: parpadeo 0.4s infinite alternate;
+  color: #facc15;
+}
+
+.on {
+  color: #22c55e;
+  font-weight: bold;
+  animation: aparecer 0.4s ease;
+}
+
+@keyframes parpadeo {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
