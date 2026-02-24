@@ -31,14 +31,32 @@ function encenderPC() {
 
   if (!encendida) {
     encendida = true;
-    pantalla.innerText = "🟡 Iniciando sistema...";
-    pantalla.classList.add("boot");
 
-    setTimeout(() => {
-      pantalla.innerText = "🟢 Sistema operativo cargado";
-      pantalla.classList.remove("boot");
-      pantalla.classList.add("on");
-    }, 1500);
+    pantalla.innerHTML = `
+      <div class="boot-screen">
+        <p>⚡ Booting system...</p>
+        <div class="barra">
+          <div class="progreso" id="progreso"></div>
+        </div>
+      </div>
+    `;
+
+    let progreso = 0;
+    const barra = document.getElementById("progreso");
+
+    const intervalo = setInterval(() => {
+      progreso += 10;
+      barra.style.width = progreso + "%";
+
+      if (progreso >= 100) {
+        clearInterval(intervalo);
+
+        setTimeout(() => {
+          pantalla.innerHTML = "🟢 Sistema operativo cargado";
+          pantalla.classList.add("on");
+        }, 400);
+      }
+    }, 120);
 
   } else {
     encendida = false;
