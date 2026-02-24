@@ -5,7 +5,6 @@ function mostrarSeccion(id) {
   document.querySelectorAll(".seccion").forEach(sec => {
     sec.style.display = "none";
   });
-
   document.getElementById(id).style.display = "block";
 }
 
@@ -22,15 +21,18 @@ function respuesta(correcta) {
   } else {
     alert("❌ Incorrecto");
   }
-
   document.getElementById("puntos").innerText = puntos;
 }
 
+/* ====== SIMULACIÓN PC PRO ====== */
+
 function encenderPC() {
   const pantalla = document.getElementById("pantalla");
+  const sonido = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3");
 
   if (!encendida) {
     encendida = true;
+    sonido.play();
 
     pantalla.innerHTML = `
       <div class="boot-screen">
@@ -52,8 +54,14 @@ function encenderPC() {
         clearInterval(intervalo);
 
         setTimeout(() => {
-          pantalla.innerHTML = "🟢 Sistema operativo cargado";
-          pantalla.classList.add("on");
+          pantalla.innerHTML = `
+            <div class="login">
+              <h3>🔐 Iniciar Sesión</h3>
+              <input type="password" id="password" placeholder="Contraseña">
+              <button onclick="login()">Entrar</button>
+              <p id="login-msg"></p>
+            </div>
+          `;
         }, 400);
       }
     }, 120);
@@ -62,6 +70,26 @@ function encenderPC() {
     encendida = false;
     pantalla.innerText = "🔴 PC apagada";
     pantalla.classList.remove("on");
+  }
+}
+
+function login() {
+  const pass = document.getElementById("password").value;
+  const msg = document.getElementById("login-msg");
+
+  if (pass === "1234") {
+    document.getElementById("pantalla").innerHTML = `
+      <div class="desktop">
+        <h3>🖥️ Escritorio</h3>
+        <div class="iconos">
+          <div class="icono" onclick="alert('📁 Mis Archivos')">📁</div>
+          <div class="icono" onclick="alert('🌐 Navegador')">🌐</div>
+          <div class="icono" onclick="alert('⚙️ Configuración')">⚙️</div>
+        </div>
+      </div>
+    `;
+  } else {
+    msg.innerText = "❌ Contraseña incorrecta";
   }
 }
 
