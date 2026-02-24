@@ -1,73 +1,20 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: black;
-  color: white;
+  font-family: "Segoe UI", sans-serif;
   overflow: hidden;
 }
 
-header {
-  text-align: center;
-  padding: 15px;
-  background: #111;
-}
-
-button {
-  background: #2563eb;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-}
+/* ===== PANTALLA ===== */
 
 #pantalla {
   width: 100vw;
-  height: calc(100vh - 70px);
+  height: 100vh;
+  background: black;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
-}
-
-/* ===== BOOT ===== */
-
-.boot-screen {
-  background: black;
-  color: #22c55e;
-  font-family: monospace;
-  text-align: center;
-}
-
-.barra {
-  width: 300px;
-  height: 20px;
-  background: #111;
-  border-radius: 10px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.progreso {
-  height: 100%;
-  width: 0%;
-  background: #22c55e;
-}
-
-/* ===== LOGIN ===== */
-
-.login {
-  background: #020617;
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.login input {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 10px;
+  font-size: 24px;
 }
 
 /* ===== DESKTOP ===== */
@@ -75,15 +22,18 @@ button {
 .desktop {
   width: 100%;
   height: 100%;
-  background: url("https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=2070") center/cover;
+  background: url("https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=2070") center/cover;
   position: relative;
 }
+
+/* ===== ICONOS ===== */
 
 .icono {
   width: 70px;
   text-align: center;
   cursor: grab;
   position: absolute;
+  color: white;
   user-select: none;
 }
 
@@ -94,13 +44,19 @@ button {
 /* ===== VENTANAS ===== */
 
 .ventana {
-  width: 300px;
+  width: 320px;
   background: #0f172a;
   border-radius: 10px;
   position: absolute;
   top: 100px;
   left: 100px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  animation: aparecer 0.2s ease;
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .barra-titulo {
@@ -112,12 +68,51 @@ button {
   justify-content: space-between;
 }
 
-.contenido {
-  padding: 15px;
+.botones span {
+  margin-left: 10px;
+  cursor: pointer;
 }
 
-.cerrar {
+.contenido {
+  padding: 15px;
+  color: white;
+}
+
+/* ===== TASKBAR ===== */
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  background: rgba(15, 23, 42, 0.95);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: white;
+}
+
+.inicio {
+  background: #2563eb;
+  padding: 6px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  color: red;
-  font-weight: bold;
+}
+
+.reloj {
+  margin-left: auto;
+}
+
+/* ===== MENU INICIO ===== */
+
+.menu-inicio {
+  position: absolute;
+  bottom: 55px;
+  left: 10px;
+  width: 200px;
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  display: none;
 }
