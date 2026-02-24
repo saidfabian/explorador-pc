@@ -1,17 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Explorador Interactivo</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorador Interactivo de la Computadora</title>
+
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
+
 <body>
 
-<div id="pantalla">
-  <button id="powerBtn">Encender PC</button>
+<header>
+  <h1>💻 Explorador Interactivo de la Computadora</h1>
+  <p>Proyecto de Informática</p>
+</header>
+
+<nav>
+  <button onclick="mostrarSeccion('hardware')">Hardware</button>
+  <button onclick="mostrarSeccion('software')">Software</button>
+  <button onclick="mostrarSeccion('quiz')">Quiz</button>
+  <button onclick="mostrarSeccion('simulacion')">Simulación</button>
+</nav>
+
+<!-- HARDWARE -->
+<section id="hardware" class="seccion activa">
+  <h2>🖥️ Hardware</h2>
+
+  <div class="grid">
+    <div class="card" onclick="mostrarInfo('CPU', 'La CPU es el cerebro del computador. Procesa datos y ejecuta instrucciones.')">CPU</div>
+    <div class="card" onclick="mostrarInfo('RAM', 'La RAM almacena información temporal mientras el equipo está encendido.')">RAM</div>
+    <div class="card" onclick="mostrarInfo('Disco Duro', 'Almacena archivos de forma permanente.')">Disco Duro</div>
+    <div class="card" onclick="mostrarInfo('Placa Base', 'Conecta todos los componentes.')">Placa Base</div>
+  </div>
+</section>
+
+<!-- SOFTWARE -->
+<section id="software" class="seccion">
+  <h2>💿 Software</h2>
+
+  <div class="grid">
+    <div class="card" onclick="mostrarInfo('Sistema Operativo', 'Controla el hardware y permite usar programas.')">Sistema Operativo</div>
+    <div class="card" onclick="mostrarInfo('Programas', 'Permiten realizar tareas específicas.')">Programas</div>
+    <div class="card" onclick="mostrarInfo('Navegadores', 'Permiten acceder a internet.')">Navegadores</div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="seccion">
+  <h2>🧠 Quiz</h2>
+
+  <div class="quiz-box">
+    <p>¿Cuál es el cerebro del computador?</p>
+    <button onclick="respuesta(true)">CPU</button>
+    <button onclick="respuesta(false)">RAM</button>
+
+    <p>¿Qué memoria es temporal?</p>
+    <button onclick="respuesta(false)">Disco Duro</button>
+    <button onclick="respuesta(true)">RAM</button>
+
+    <p>¿Qué componente almacena archivos?</p>
+    <button onclick="respuesta(true)">Disco Duro</button>
+    <button onclick="respuesta(false)">CPU</button>
+
+    <p>¿Qué controla todo el sistema?</p>
+    <button onclick="respuesta(true)">Sistema Operativo</button>
+    <button onclick="respuesta(false)">Monitor</button>
+
+    <p class="puntos">Puntos: <span id="puntos">0</span></p>
+  </div>
+</section>
+
+<!-- SIMULACIÓN -->
+<section id="simulacion" class="seccion">
+  <h2>⚙️ Simulación</h2>
+
+  <button class="power" onclick="encenderPC()">Encender / Apagar</button>
+
+  <div id="pantalla" class="pantalla apagada">
+    🔴 PC apagada
+  </div>
+</section>
+
+<!-- Ventana emergente -->
+<div id="ventana" class="ventana oculto">
+  <div class="ventana-contenido">
+    <h3 id="tituloVentana"></h3>
+    <p id="textoVentana"></p>
+    <button onclick="cerrarVentana()">Cerrar</button>
+  </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=3"></script>
+
 </body>
 </html>
