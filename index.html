@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explorador Interactivo</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 
 <body>
@@ -97,7 +97,7 @@
     <!-- PC 3D -->
     <div id="pc3d" class="seccion">
       <h2>🖱️ PC 3D Interactiva</h2>
-      <p class="sub">Arrastra para girar • Usa el zoom para acercar/alejar • Toca Monitor o Case</p>
+      <p class="sub">Arrastra para girar • Usa el zoom para acercar/alejar • Toca Monitor, Case o componentes</p>
 
       <div class="pcTools">
         <label class="zoomLabel">
@@ -109,6 +109,7 @@
 
       <div class="pcStage" id="pcStage">
         <div class="pcModel" id="pcModel" aria-label="Modelo 3D de PC">
+
           <!-- MONITOR -->
           <div class="monitor" data-part="MONITOR" onclick="infoPC('MONITOR')">
             <div class="screen">
@@ -131,14 +132,30 @@
             </div>
             <div class="caseSide"></div>
 
-            <!-- hotspots dentro del case -->
-            <button class="hotspot hs-cpu" onclick="event.stopPropagation(); infoPC('CPU_IN')">CPU</button>
-            <button class="hotspot hs-ram" onclick="event.stopPropagation(); infoPC('RAM_IN')">RAM</button>
-            <button class="hotspot hs-gpu" onclick="event.stopPropagation(); infoPC('GPU_IN')">GPU</button>
-            <button class="hotspot hs-disk" onclick="event.stopPropagation(); infoPC('DISCO_IN')">SSD/HDD</button>
-            <button class="hotspot hs-psu" onclick="event.stopPropagation(); infoPC('FUENTE_IN')">PSU</button>
-            <button class="hotspot hs-mobo" onclick="event.stopPropagation(); infoPC('PLACA_IN')">MB</button>
+            <!-- COMPONENTES 3D -->
+            <div class="comp cpu3d"  onclick="event.stopPropagation(); infoPC('CPU_IN')">CPU</div>
+            <div class="comp ram3d"  onclick="event.stopPropagation(); infoPC('RAM_IN')">RAM</div>
+            <div class="comp gpu3d"  onclick="event.stopPropagation(); infoPC('GPU_IN')">GPU</div>
+            <div class="comp disk3d" onclick="event.stopPropagation(); infoPC('DISCO_IN')">SSD</div>
+            <div class="comp mobo3d" onclick="event.stopPropagation(); infoPC('PLACA_IN')">MB</div>
+            <div class="comp psu3d"  onclick="event.stopPropagation(); infoPC('FUENTE_IN')">PSU</div>
           </div>
+
+          <!-- TECLADO + MOUSE -->
+          <div class="peripherals">
+            <div class="keyboard">
+              <div class="keys">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="mouse"></div>
+          </div>
+
         </div>
       </div>
 
@@ -154,8 +171,6 @@
 
   </div>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
-
-
